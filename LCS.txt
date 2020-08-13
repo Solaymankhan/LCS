@@ -1,0 +1,52 @@
+
+public class LongestCommonSubsequence {
+
+    public static void main(String[] args) {
+        String s1 = "AGGTAB";
+        String s2 = "GXTXAYB";
+
+        char[] X = s1.toCharArray();
+        char[] Y = s2.toCharArray();
+        int m = X.length;
+        int n = Y.length;
+        int i, j, k, l, o, p, q;
+        int L[][] = new int[m + 1][n + 1];
+
+        for (i = 0; i <= m; i++) {
+            for (j = 0; j <= n; j++) {
+                if (i == 0 || j == 0) {
+                    L[i][j] = 0;
+                } else if (X[i - 1] == Y[j - 1]) {
+                    L[i][j] = L[i - 1][j - 1] + 1;
+
+                } else {
+                    L[i][j] = (L[i - 1][j] > L[i][j - 1]) ? L[i - 1][j] : L[i][j - 1];
+                }
+            }
+        }
+
+        System.out.println(L[m][n] + " Matches");
+
+        l = L[m][n];
+        q = L[m][n];
+        char[] z = new char[l];
+        k = m;
+        o = n;
+        while (k > 0 && o > 0) {
+            if (X[k - 1] == Y[o - 1]) {
+                z[--l] = X[k - 1];
+                k--;
+                o--;
+            } else if (L[k - 1][o] > L[k][o - 1]) {
+                k--;
+            } else {
+                o--;
+            }
+        }
+        System.out.print("DNA Most Match : ");
+        for (p = 0; p < q; p++) {
+            System.out.print(z[p]);
+        }
+        System.out.println();
+    }
+}
